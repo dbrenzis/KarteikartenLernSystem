@@ -1,0 +1,115 @@
+{{define "showcase"}}
+{{$KarteikastenID := .Karteikasten.ID}}
+
+<div class="column is-10">
+  <div class="showcaseheader-double">
+    <div class="showcaseheader">
+      <h2>Karteikasten anschauen</h2>
+      <p>
+        Hier kannst du dir eine beliebige Kartei anschauen ohne sie zu
+        bearbeiten.
+      </p>
+    </div>
+  </div>
+
+  <div class="showcase-grid-edit">
+    <div class="showcase-kartei-header-lern">
+      <div>
+        <h4>Name</h4>
+        <h2>{{.Karteikasten.KarteikastenName}}</h2>
+      </div>
+      <div>
+        <h4>Kategorie</h4>
+        <h2>
+          {{.Karteikasten.Ueberkategorie}}<i class="fas fa-caret-right"></i
+          >{{.Karteikasten.UnterKategorie}}
+        </h2>
+      </div>
+      <div>
+        <h4>Erstellt von</h4>
+        <h2>{{.Karteikasten.ErstellerName}}</h2>
+      </div>
+      <div class="is-centered">
+        <h4>Fortschritt</h4>
+        <h2>{{.Karteikasten.Fortschritt}}%</h2>
+      </div>
+      <div class="hexagon is-right">
+        <h2>{{.Karteikasten.AnzKarten}}</h2>
+        <p>Karten</p>
+      </div>
+    </div>
+    <div class="grid-1-3">
+      <div class="kart-box">
+        {{ range .Karteikasten.Karteikarten }}
+        <div class="kart-v {{if .IstGruen}}is-green{{else}}{{end}}">
+          <!--is-green-->
+          <a href="/karteikasten/view/?id={{$KarteikastenID}}&nr={{.KartenNr}}">
+            <div>
+              <h2>#{{.KartenNr}}</h2>
+              <h4>{{.KartenName}}</h4>
+            </div>
+          </a>
+        </div>
+        {{ end }}
+      </div>
+      <div class="showcase-kart-box">
+        <form class="reg-form">
+          <div class="field box-1-6-2flex">
+            <label class="label">Titel</label>
+            <div class="control">
+              <p>
+                <strong>{{.KartenName}}</strong>
+              </p>
+            </div>
+            <div class="hexa-flex">
+              <div
+                class="hexagon2 is-centerd {{if .Fach0}}is-green-hex{{ end }}"
+              >
+                <h2>0</h2>
+              </div>
+              <div
+                class="hexagon2 is-centerd {{if .Fach1}}is-green-hex{{ end }}"
+              >
+                <h2>1</h2>
+              </div>
+              <div
+                class="hexagon2 is-centerd {{if .Fach2}}is-green-hex{{ end }}"
+              >
+                <h2>2</h2>
+              </div>
+              <div
+                class="hexagon2 is-centerd {{if .Fach3}}is-green-hex{{ end }}"
+              >
+                <h2>3</h2>
+              </div>
+              <div
+                class="hexagon2 is-centerd {{if .Fach4}}is-green-hex{{ end }}"
+              >
+                <h2>4</h2>
+              </div>
+            </div>
+          </div>
+          <div class="field box-1-8-flex just-up">
+            <label class="label">Frage</label>
+            <div class="control">
+              <p>
+                {{.Frage}}
+              </p>
+            </div>
+          </div>
+          <div class="field box-1-8-flex just-up">
+            <label class="label">Antwort</label>
+            <div class="control">
+              <p>
+                {{.Antwort}}
+              </p>
+            </div>
+          </div>
+          <div></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ end }}

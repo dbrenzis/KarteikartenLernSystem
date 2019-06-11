@@ -1,0 +1,108 @@
+{{define "showcase"}}
+    <div class="column is-10">
+      <div class="showcaseheader-double">
+        <div class="showcaseheader">
+          <h2>Karteikasten erstellen / Karteikasten bearbeiten</h2>
+          <p>
+            Hier kannst du eine neue Kartei erstellen, oder eine vorhandene nach
+            Bedarf bearbeiten.
+          </p>
+        </div>
+      </div>
+      <div class="showcase-field showcase-edit">
+        <h4>Allgemeine Daten</h4>
+        <form class="reg-form" action="/karteikasten/edit/add-Kasten/?id={{.Karteikasten.ID}}" method="Post">
+          <div class="field box-5-flex">
+            <label class="label">Titel</label>
+            <div class="control">
+              <input class="input is-dark" type="text" name="Titel" value="{{.Karteikasten.KarteikastenName}}" />
+            </div>
+          </div>
+          <div class="field box-5-flex">
+            <label class="label">Kategorie</label>
+            <div class="select is-dark">
+              <select class="kategorie dark" name="Ueberkategorie">
+                <optgroup class="opt-group" label="Naturwissenschaften">
+                  <option value="Naturwissenschaften,Biologie" {{if eq .Karteikasten.UnterKategorie "Biologie"}}selected{{end}}>Biologie</option>
+                  <option value="Naturwissenschaften,Chemie" {{if eq .Karteikasten.UnterKategorie "Chemie"}}selected{{end}}>Chemie</option>
+                  <option value="Naturwissenschaften,Elektrotechnik" {{if eq .Karteikasten.UnterKategorie "Elektrotechnik"}}selected{{end}}>Elektrotechnik</option>
+                  <option value="Naturwissenschaften,Informatik"{{if eq .Karteikasten.UnterKategorie "Informatik"}}selected{{end}}>Informatik</option>
+                  <option value="Naturwissenschaften,Mathematik" {{if eq .Karteikasten.UnterKategorie "Mathematik"}}selected{{end}}>Mathematik</option>
+                  <option value="Naturwissenschaften,Medizin" {{if eq .Karteikasten.UnterKategorie "Medizin"}}selected{{end}}>Medizin</option>
+                  <option value="Naturwissenschaften,Naturkunde" {{if eq .Karteikasten.UnterKategorie "Naturkunde"}}selected{{end}}>Naturkunde</option>
+                  <option value="Naturwissenschaften,Physik" {{if eq .Karteikasten.UnterKategorie "Physik"}}selected{{end}}>Physik</option>
+                  <option value="Naturwissenschaften,Sonstiges" {{if eq .Karteikasten.Ueberkategorie "Naturwissenschaften"}}{{if eq .Karteikasten.UnterKategorie "Sonstiges"}}selected{{end}}{{end}}>Sonstiges</option>
+                </optgroup>
+                <optgroup class="opt-group" label="Sprachen">
+                  <option value="Sprachen,Chinesisch" {{if eq .Karteikasten.UnterKategorie "Chinesisch"}}selected{{end}}>Chinesisch</option>
+                  <option value="Sprachen,Deutsch" {{if eq .Karteikasten.UnterKategorie "Deutsch"}}selected{{end}}>Deutsch</option>
+                  <option value="Sprachen,Englisch" {{if eq .Karteikasten.UnterKategorie "Englisch"}}selected{{end}}>Englisch</option>
+                  <option value="Sprachen,Französisch" {{if eq .Karteikasten.UnterKategorie "Französisch"}}selected{{end}}>Französisch</option>
+                  <option value="Sprachen,Griechisch" {{if eq .Karteikasten.UnterKategorie "Griechisch"}}selected{{end}}>Griechisch</option>
+                  <option value="Sprachen,Italienisch" {{if eq .Karteikasten.UnterKategorie "Italienisch"}}selected{{end}}>Italienisch</option>
+                  <option value="Sprachen,Latein" {{if eq .Karteikasten.UnterKategorie "Latein"}}selected{{end}}>Latein</option>
+                  <option value="Sprachen,Russisch" {{if eq .Karteikasten.UnterKategorie "Russisch"}}selected{{end}}>Russisch</option>
+                  <option value="Sprachen,Sonstiges" {{if eq .Karteikasten.Ueberkategorie "Sprachen"}}{{if eq .Karteikasten.UnterKategorie "Sonstiges"}}selected{{end}}{{end}}>Sonstiges</option>
+                </optgroup>
+                <optgroup class="opt-group" label="Gesellschaft">
+                  <option value="Gesellschaft,Ethik" {{if eq .Karteikasten.UnterKategorie "Ethik"}}selected{{end}}>Ethik</option>
+                  <option value="Gesellschaft,Geschichte" {{if eq .Karteikasten.UnterKategorie "Geschichte"}}selected{{end}}>Geschichte</option>
+                  <option value="Gesellschaft,Literatur" {{if eq .Karteikasten.UnterKategorie "Literatur"}}selected{{end}}>Literatur</option>
+                  <option value="Gesellschaft,Musik" {{if eq .Karteikasten.UnterKategorie "Musik"}}selected{{end}}>Musik</option>
+                  <option value="Gesellschaft,Politik" {{if eq .Karteikasten.UnterKategorie "Politik"}}selected{{end}}>Politik</option>
+                  <option value="Gesellschaft,Recht" {{if eq .Karteikasten.UnterKategorie "Recht"}}selected{{end}}>Recht</option>
+                  <option value="Gesellschaft,Soziales" {{if eq .Karteikasten.UnterKategorie "Soziales"}}selected{{end}}>Soziales</option>
+                  <option value="Gesellschaft,Sport" {{if eq .Karteikasten.UnterKategorie "Sport"}}selected{{end}}>Sport</option>
+                  <option value="Gesellschaft,Verkehrskunde" {{if eq .Karteikasten.UnterKategorie "Verkehrskunde"}}selected{{end}}>Verkehrskunde</option>
+                  <option value="Gesellschaft,Sonstiges" {{if eq .Karteikasten.Ueberkategorie "Gesellschaft"}}{{if eq .Karteikasten.UnterKategorie "Sonstiges"}}selected{{end}}{{end}}>Sonstiges</option>
+                </optgroup>
+                <optgroup class="opt-group" label="Wirtschaft">
+                  <option value="Wirtschaft,BWL" {{if eq .Karteikasten.UnterKategorie "BWL"}}selected{{end}}>BWL</option>
+                  <option value="Wirtschaft,Finanzen" {{if eq .Karteikasten.UnterKategorie "Finanzen"}}selected{{end}}>Finanzen</option>
+                  <option value="Wirtschaft,Landwirtschaft" {{if eq .Karteikasten.UnterKategorie "Landwirtschaft"}}selected{{end}}>Landwirtschaft</option>
+                  <option value="Wirtschaft,Marketing" {{if eq .Karteikasten.UnterKategorie "Marketing"}}selected{{end}}>Marketing</option>
+                  <option value="Wirtschaft,VWL" {{if eq .Karteikasten.UnterKategorie "VWL"}}selected{{end}}>VWL</option>
+                  <option value="Wirtschaft,Sonstiges" {{if eq .Karteikasten.Ueberkategorie "Wirtschaft"}}{{if eq .Karteikasten.UnterKategorie "Sonstiges"}}selected{{end}}{{end}}>Sonstiges</option>
+                </optgroup>
+                <optgroup class="opt-group" label="Geisteswissenschaften">
+                  <option value="Geisteswissenschaften,Kriminologie" {{if eq .Karteikasten.UnterKategorie "Kriminologie"}}selected{{end}}>Kriminologie</option>
+                  <option value="Geisteswissenschaften,Philosophie" {{if eq .Karteikasten.UnterKategorie "Philosophie"}}selected{{end}}>Philosophie</option>
+                  <option value="Geisteswissenschaften,Psychologie" {{if eq .Karteikasten.UnterKategorie "Psychologie"}}selected{{end}}>Psychologie</option>
+                  <option value="Geisteswissenschaften,Pädagogik" {{if eq .Karteikasten.UnterKategorie "Pädagogik"}}selected{{end}}>Pädagogik</option>
+                  <option value="Geisteswissenschaften,Theologie" {{if eq .Karteikasten.UnterKategorie "Theologie"}}selected{{end}}>Theologie</option>
+                  <option value="Geisteswissenschaften,Sonstiges" {{if eq .Karteikasten.Ueberkategorie "Geisteswissenschaften"}}{{if eq .Karteikasten.UnterKategorie "Sonstiges"}}selected{{end}}{{end}}>Sonstiges</option>
+                </optgroup>
+              </select>
+            </div>
+            <p class="help is-danger">
+              
+            </p>
+          </div>
+          <div class="field box-5-flex just-up">
+            <label class="label">Beschreibung</label>
+            <div class="control">
+              <textarea class="textarea is-dark" name="Beschreibung">{{.Karteikasten.KarteikastenBeschreibung}}</textarea>
+            </div>
+          </div>
+          <div class="field box-5-flex">
+            <label class="label" >Sichtbarkeit</label>
+            <div class="control is-dark">
+              <label class="radio">
+                <input type="radio" name="Öffentlich" {{if eq .Karteikasten.Sichtbarkeit "Öffentlich"}}checked{{end}} />
+                Öffentlich
+              </label>
+              <label class="radio">
+                <input type="radio" name="Privat" {{if eq .Karteikasten.Sichtbarkeit "Privat"}}checked{{end}}/>
+                Privat
+              </label>
+            </div>
+          </div>
+          <div class="field">
+            <button class="button loginbtn" type="submit">
+              Speichern und weiter
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+{{end}}

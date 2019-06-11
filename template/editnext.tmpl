@@ -1,0 +1,109 @@
+{{define "showcase"}}
+{{$KarteikastenID := .Karteikasten.ID}}
+    <div class="column is-10">
+        <div class="showcaseheader-double">
+            <div class="showcaseheader">
+                <h2>Karteikasten erstellen / Karteikasten bearbeiten</h2>
+                <p>
+                    Hier kannst du eine neue Kartei erstellen, oder eine vorhandene nach
+                    Bedarf bearbeiten.
+                </p>
+            </div>
+        </div>
+        <div class="showcase-grid-edit">
+            <div class="showcase-kartei-header">
+            <div>
+                <h4>Name</h4>
+                <h2>{{.Karteikasten.KarteikastenName}}</h2>
+            </div>
+            <div>
+                <h4>Kategorie</h4>
+                <h2>
+                {{.Karteikasten.Ueberkategorie}}<i class="fas fa-caret-right"></i
+                >{{.Karteikasten.UnterKategorie}}
+                </h2>
+            </div>
+            <div>
+                <h4>Fortschritt</h4>
+                <h2>{{.Karteikasten.Fortschritt}}%</h2>
+            </div>
+            <button class="button is-small loginbtn is-green" type="submit">
+                <a href="/karteikasten/edit/?id={{$KarteikastenID}}"
+                >Bearbeiten</a
+                >
+            </button>
+            <div class="hexagon is-centered">
+                <h2>{{.Karteikasten.AnzKarten}}</h2>
+                <p>Karten</p>
+            </div>
+        </div>
+        <div class="grid-1-3">
+            <div class="kart-box">
+                {{if eq .Karteikasten.AnzKarten "0"}}
+                    <p>
+                        Es sind noch keine Karteikarten vorhanden.
+                    </p>
+                {{else}}
+                    {{range.Karteikasten.Karteikarten }}
+                        <div class="kart">
+                            <div>
+                                <h2>#{{.KartenNr}}</h2>
+                                <h4>{{.KartenName}}</h4>
+                            </div>
+                            <button class="button is-small loginbtn is-green" type="submit">
+                                <a
+                                href="/karteikasten/edit-karten/?id={{$KarteikastenID}}&nr={{.KartenNr}}"
+                                >Bearbeiten</a
+                                >
+                            </button>
+                            <button class="button is-small delbtn" type="submit">
+                                <img src="/static/img/Icons/Delete.svg" alt="" />
+                            </button>
+                        </div>
+                    {{ end }}
+                {{ end }}
+            </div>
+            <div class="showcase-kart-box">
+                <form lass="reg-form" action="/karteikasten/edit-karten/update-karte/?id={{$KarteikastenID}}&nr={{if eq .Karteikasten.AnzKarten "0"}}1{{else}}{{.KartenNr}}{{end}}">
+                    <div class="field box-1-8-flex">
+                        <label class="label">Titel</label>
+                        <div class="control">
+                            <input
+                            class="input is-dark"
+                            type="text"
+                            name="KartenName"
+                            value="{{.KartenName}}"
+                            />
+                        </div>
+                    </div>
+                    <div class="field box-1-8-flex just-up">
+                        <label class="label">Frage</label>
+                        <div class="control">
+                            <textarea id="MyID" name="Frage" class="textarea is-dark">{{.Frage}}</textarea>
+                        </div>
+                    </div>
+                    <div class="field box-1-8-flex just-up">
+                        <label class="label">Antwort</label>
+                        <div class="control">
+                            <textarea id="MyID2" name="Antwort" class="textarea is-dark">{{.Antwort}}</textarea>
+                        </div>
+                    </div>
+                    <div class="field box-1-8-flex">
+                        <div></div>
+                        <div class="is-centered">
+                            <button class="button loginbtn" type="submit">
+                                Speichern
+                            </button>
+                            <button class="button loginbtn is-red" type="submit">
+                                <a href="/meinekarteien">Abbrechen</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script src="/static/js/main.js"></script>
+{{end}}

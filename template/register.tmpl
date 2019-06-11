@@ -1,0 +1,78 @@
+{{define "showcase"}}
+
+    <div class="column is-10">
+      <div class="showcaseheader"><h2>Registrieren</h2></div>
+      <div class="showcase-field">
+        <p>
+          Wir freuen uns, dass du dich bei BrainTrain anmelden möchtest. Bitte
+          beachte, dass
+          <strong>pro E-Mail Adresse nur ein Nutzer</strong> erstellt werden
+          kann und jeder <strong>Nutzername nur einmal vergeben</strong> wird.
+        </p>
+        <form class="reg-form" action="/add-user" method="POST">
+          <div class="field box-3-flex">
+            <label class="label">Nutzername</label>
+            <div class="control">
+              <input
+                class="input" 
+                type="text" 
+                name="username"
+                placeholder="maxmustermann"
+              /> <!--is-danger-->
+            </div>
+            <p class="help is-danger">
+              {{.ErrorUsername}}
+            </p>
+          </div>
+          <div class="field box-3-flex">
+            <label class="label">E-Mail </label>
+            <div class="control">
+              <input
+                class="input"
+                type="email"
+                name="email"
+                placeholder="muster@example.de"
+              /><!--is-danger-->
+            </div>
+            <p class="help is-danger">
+              {{.ErrorEmail}}
+            </p>
+          </div>
+          <div class="field box-3-flex passwordabs">
+            <label class="label">Passwort</label>
+            <div class="control">
+              <input class="input" name="password" type="password" placeholder="" /> <!--is-danger-->
+            </div>
+            <div></div>
+          </div>
+          <div class="field box-3-flex">
+            <label class="label">Passwort wiederholen</label>
+            <div class="control">
+              <input class="input" type="password" placeholder="" /><!--is-danger-->
+            </div>
+            <p class="help is-danger">
+              <!--Die Passwörter stimmen nicht überein!-->
+            </p>
+          </div>
+          <div class="field box-3-flex">
+            <div></div>
+            <label class="checkbox">
+              <input type="checkbox" /> Ich habe die nicht vorhandene
+              Datenschutzerklärung zur Kenntnis genommen.
+            </label>
+            <p class="help is-danger">
+              <!--Bitte setzen Sie hier einen Haken!-->
+            </p>
+          </div>
+          <div class="field">
+            <button class="button is-small loginbtn" type="submit">
+              Registrieren
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+{{end}}

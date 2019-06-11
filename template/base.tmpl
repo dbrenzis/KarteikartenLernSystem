@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="WebProjekt" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css"
+    />
+    <link rel="stylesheet" href="/static/css/bulma.css"/>
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <title>WebProjekt</title>
+  </head>
+  <body class="columns is-gapless is-multiline">
+    <div class="column is-2 logo">
+      <a href="/"><img src="/static/img/Logo/Logo.svg" alt="Bild"/></a>
+      <a href="/"
+        ><h2><strong>Brain</strong>Train</h2></a
+      >
+    </div>
+
+    {{if .BaseDaten.LoggedIn}}
+    <div class="column is-10 header-login">
+      <i class="fas fa-bars"></i>
+      <div class="form-group-loggedIn">
+        <button class="button is-small loginbtn" type="submit">
+          <a href="/karteikasten/edit/">Neue Kartei</a>
+        </button>
+        <div class="inline-block">
+          <label> {{.BaseDaten.Name}} </label>
+          <a class="form-group-item-link" href="/logout">Logout</a>
+        </div>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </div>
+
+    <div class="column is-2 sidebar">
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <img
+            class="icon"
+            src="/static/img/Icons/Home.svg"
+            alt="Home"
+            srcset=""
+          />
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-item">
+          <img
+            class="icon"
+            src="/static/img/Icons/Karteikasten.svg"
+            alt=""
+            srcset=""
+          />
+          <a href="/karteikasten">Karteikasten</a>
+          <div class="tag notification">{{.BaseDaten.TagK}}</div>
+        </li>
+        <li class="sidebar-item">
+          <img
+            class="icon"
+            src="/static/img/Icons/Meine-Karteien.svg"
+            alt=""
+            srcset=""
+          />
+          <a href="/meinekarteien">Meine Karteikästen</a>
+          <div class="tag notification">{{.BaseDaten.TagMK}}</div>
+        </li>
+        <li class="sidebar-item">
+          <img
+            class="icon"
+            src="/static/img/Icons/Mein-Profil.svg"
+            alt=""
+            srcset=""
+          />
+          <a href="/profil">Mein Profil</a>
+        </li>
+      </ul>
+    </div>
+    {{else}}
+    <div class="column is-10 header-login">
+      <div>
+        <i class="fas fa-bars"></i>
+        <span class="">{{.ErrorMsg}}</span>
+      </div>
+
+      <form class="login-form" action="{{.BaseDaten.Link}}/authenticate-user" method="POST">
+        <div class="form-group">
+          <input
+            class="form-group-item"
+            type="text"
+            name="username"
+            id=""
+            placeholder="Nutzername"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-group-item"
+            type="password"
+            name="password"
+            id=""
+            placeholder="Passwort"
+          />
+        </div>
+        <div class="form-group">
+          <button class="button is-small loginbtn" type="submit">
+            Login
+          </button>
+        </div>
+        <div class="form-group">
+          <a class="form-group-item-link" href="/register">Registrieren</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="column is-2 sidebar">
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <img
+            class="icon"
+            src="/static/img/Icons/Home.svg"
+            alt="Home"
+            srcset=""
+          />
+          <a href="/">Home</a>
+        </li>
+        <li class="sidebar-item">
+          <img
+            class="icon"
+            src="/static/img/Icons/Karteikasten.svg"
+            alt=""
+            srcset=""
+          />
+          <a href="/karteikasten">Karteikasten</a>
+
+          <div class="tag notification">{{.BaseDaten.TagK}}</div>
+        </li>
+      </ul>
+    </div>
+    {{ end }}
+
+    {{template "showcase" .}}
+  </body>
+</html>

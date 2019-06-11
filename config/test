@@ -1,0 +1,413 @@
+
+
+type lernData struct {
+	Id             string `json:"_id"`
+	Rev            string `json:"_rev"`
+	LogIn          bool   `json:"login"`
+	Name           string `json:"name"`
+	TagK           string `json:"tagk"`
+	TagMK          string `json:"tagmk"`
+	Cardtitel      string `json:"cardtitel"`
+	Ueberkategorie string `json:"ueberkategorie"`
+	UnterKategorie string `json:"unterkategorie"`
+	Fortschritt    string `json:"fortschritt"`
+	FachAnz0       string `json:"fachanz0"`
+	FachAnz1       string `json:"fachanz1"`
+	FachAnz2       string `json:"fachanz2"`
+	FachAnz3       string `json:"fachanz3"`
+	FachAnz4       string `json:"fachanz4"`
+	Fach0          bool   `json:"fach0"`
+	Fach1          bool   `json:"fach1"`
+	Fach2          bool   `json:"fach2"`
+	Fach3          bool   `json:"fach3"`
+	Fach4          bool   `json:"fach4"`
+	Nrcards        string `json:"nrcards"`
+	KartenTitel    string `json:"kartentitel"`
+	Frage          string `json:"frage"`
+	Antwort        string `json:"antwort"`
+	Aufgedeckt     bool   `json:"aufgedeckt"`
+}
+
+
+type catego struct {
+	Id             string `json:"_id"`
+	Rev            string `json:"_rev"`
+	LogIn          bool   `json:"login"`
+	Name           string `json:"name"`
+	TagK           string `json:"tagk"`
+	TagMK          string `json:"tagmk"`
+	Anzuser        string `json:"anzuser"`
+	Anzkart        string `json:"anzkat"`
+	Anzcat         string `json:"anzcat"`
+	Ueberkategorie string `json:"ueberkategorie"`
+	UnterKategorie string `json:"unterkategorie"`
+	ErstellerName  string `json:"erstellername"`
+	Sichtbarkeit   string `json:"sichtbarkeit"`
+	Karteien       []struct {
+		Kategorieleer bool   `json:"kategorieleer"`
+		Karteititel   string `json:"karteititel"`
+
+		couchdb.Document
+	} `json:"karteien"`
+	couchdb.Document
+}
+
+type card struct {
+	Carducat       string `json:"carducat"`
+	Cardtitel      string `json:"cardtitel"`
+	Nrcards        string `json:"nrcards"`
+	Cardcont       string `json:"cardcont"`
+	LogIn          bool   `json:"login"`
+	Fortschritt    string `json:"fortschritt"`
+	Sichtbarkeit   string `json:"sichtbarkeit"`
+	KartenNr       string `json:"kartennr"`
+	Ueberkategorie string `json:"ueberkategorie"`
+	UnterKategorie string `json:"unterkategorie"`
+	ErstellerName  string `json:"erstellername"`
+	KeinEigentum   bool   `json:"keineigentum"`
+	Frage          string `json:"frage"`
+	Antwort        string `json:"antwort"`
+	Fach0          bool   `json:"fach0"`
+	Fach1          bool   `json:"fach1"`
+	Fach2          bool   `json:"fach2"`
+	Fach3          bool   `json:"fach3"`
+	Fach4          bool   `json:"fach4"`
+}
+
+type ViewData struct {
+	Id             string `json:"_id"`
+	Rev            string `json:"_rev"`
+	LogIn          bool   `json:"login"`
+	Name           string `json:"name"`
+	TagK           string `json:"tagk"`
+	TagMK          string `json:"tagmk"`
+	Ueberkategorie string `json:"ueberkategorie"`
+	UnterKategorie string `json:"unterkategorie"`
+	Fortschritt    string `json:"fortschritt"`
+	Nrcards        string `json:"nrcards"`
+	ErstellerName  string `json:"erstellername"`
+	Karten         []struct {
+		KartenNr string `json:"kartennr"`
+		Ctitel   string `json:"ctitel"`
+		couchdb.Document
+	} `json:"karten"`
+	Cardtitel string `json:"cardtitel"`
+	Frage     string `json:"frage"`
+	Antwort   string `json:"antwort"`
+	Fach0     bool   `json:"fach0"`
+	Fach1     bool   `json:"fach1"`
+	Fach2     bool   `json:"fach2"`
+	Fach3     bool   `json:"fach3"`
+	Fach4     bool   `json:"fach4"`
+	couchdb.Document
+}
+
+{
+  "_id": "09ce2dd0358150abbd06d6488100fadd",
+  "_rev": "1-967a00dff5e02add41819138abb3284d",
+  "login": true,
+  "name": "Daniel Brenzis",
+  "tagk": "23",
+  "tagmk": "11",
+  "karteien": [ 
+    {
+      "kategorieleer": false,
+      "karteitiel": "Naturwissenschaffen",
+      "karten": [
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          }
+      ],
+    },
+    {
+      "kategorieleer": false,
+      "karteitiel": "Sprachen",
+      "karten": [
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43,
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          }
+      ],
+    },
+    {
+      "kategorieleer": false,
+      "karteitiel": "Gesellschaft",
+      "karten": [
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          }
+      ],
+    },
+    {
+      "kategorieleer": false,
+      "karteitiel": "Wirtschafft",
+      "karten": [
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true
+          },
+          {
+          "carducat":"Geometrie",
+          "cardtitel":"Dreiecke",
+          "nrcards":"43",
+          "cardcont":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo nostrum vitae quisquam ea obcaecati nobis magni assumenda. Beatae nisi error autem eius rem molestias voluptatum, et optio laborum itaque unde.",
+          "login": true,
+          }
+      ],
+    }
+    ]
+}
+
+
+
+
+
+
+{
+  "_id": "lerndata1",
+  "login": true,
+  "name": "Daniel Brenzis",
+  "tagk": "23",
+  "tagmk": "11",
+  "aufgedeckt": true,
+  "ueberkategorie": "Mathe",
+  "unterkategorie": "Geometrie",
+  "fortschritt": "90",
+  "nrcards": "5",
+  "cardtitel": "Dreiecke mit Kreisen",
+  "kartentitel": "Titel der Karte",
+  "frage": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore placeat itaque magni nobis aspernatur mollitia! Qui provident illum voluptates quaerat quae. Est, doloremque? Aut officia nisi quaerat commodi autem ipsa. Neque delectus aspernatur eveniet dolorum tempore minima vel veniam architecto, quo officia quidem pariatur deserunt, voluptas, in beatae possimus repellendus.?",
+  "antwort": "Mindestens so viele, wie es Meschen auf der Erde gibt.",
+  "fachanz0": "1",
+  "fachanz1": "0",
+  "fachanz2": "2",
+  "fachanz3": "1",
+  "fachanz4": "1",
+  "fach0": false,
+  "fach1": false,
+  "fach2": false,
+  "fach3": true,
+  "fach4": false
+}
+
+
+
+
+func GetAllTodos() ([]map[string]interface{}, error) {
+	allTodos, err := btDB.QueryJSON(`
+	{
+		"selector": {
+			 "type": {
+					"$eq": "Todo"
+			 }
+		}
+	 }`)
+	if err != nil {
+		return nil, err
+	} else {
+		return allTodos, nil
+	}
+}
+
+//Get Karteikasten
+func GetKarteikastenData() (Karteikastendata, error) {
+	t, err := btDBS.Get("09ce2dd0358150abbd06d648810146c0", nil)
+
+	if err != nil {
+		return Karteikastendata{}, err
+	}
+	var karteikasten Karteikastendata
+	mapstructure.Decode(t, &karteikasten)
+
+	fmt.Println(karteikasten)
+	return karteikasten, nil
+}
+
+//Get MeineKarteikasten
+func GetMeineKarteikastenData() (Karteikastendata, error) {
+	t, err := btDBS.Get("meinekarteikaesten0", nil)
+
+	if err != nil {
+		return Karteikastendata{}, err
+	}
+	var karteikasten Karteikastendata
+	mapstructure.Decode(t, &karteikasten)
+
+	return karteikasten, nil
+}
+
+//Get ViewData
+func GetViewData() (ViewData, error) {
+	t, err := btDBS.Get("viewdata1", nil)
+
+	if err != nil {
+		return ViewData{}, err
+	}
+	var viewdata ViewData
+	mapstructure.Decode(t, &viewdata)
+
+	return viewdata, nil
+}
+
+//Get LernData
+func GetLernData() (lernData, error) {
+	t, err := btDBS.Get("lerndata", nil)
+
+	if err != nil {
+		return lernData{}, err
+	}
+	var lerndata lernData
+	mapstructure.Decode(t, &lerndata)
+
+	return lerndata, nil
+}
+
+
+
+
+
+
+
+
+
+func View(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("template/base.tmpl", "template/view.tmpl")
+	log.Println(err)
+	viewdata, _ := model.GetViewData()
+	t.Execute(w, viewdata)
+}
+
+func Lern(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("template/base.tmpl", "template/lern.tmpl")
+	log.Println(err)
+	lerndata, _ := model.GetLernData()
+	t.Execute(w, lerndata)
+}
+
+// ToggleDone controller
+func ToggleDone(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("template/base.tmpl", "template/lern.tmpl")
+	log.Println(err)
+	lerndata, _ := model.GetLernData()
+	lerndata.Aufgedeckt = true
+	t.Execute(w, lerndata)
+}
+
+func Profil(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("template/profil.html")
+	log.Println(err)
+	t.Execute(w, "")
+}
+
+func EditN(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("template/edit_n.html")
+	log.Println(err)
+	t.Execute(w, "")
+  }
+
+
+//Für die Edit Seite
+func Edit(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("template/edit.html")
+	log.Println(err)
+	t.Execute(w, "")
+}
+
+
+	http.HandleFunc("/karteikasten/edit", controller.Edit)
+	http.HandleFunc("/karteikasten/edit_n", controller.EditN)
+	http.HandleFunc("/karteikasten/view", controller.View)
+	http.HandleFunc("/karteikasten/lern", controller.Lern)
+	http.HandleFunc("/karteikasten/lern/", controller.ToggleDone)
+	http.HandleFunc("/profil", controller.Profil)

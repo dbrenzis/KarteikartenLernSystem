@@ -1,0 +1,130 @@
+{{define "showcase"}}
+    <div class="column is-10">
+      <div class="showcaseheader-double">
+        <div class="showcaseheader">
+          <h2>Lernen</h2>
+          <p>
+            Hier wird dir zufällige eine Karte aus der gewählten Kartei
+            angezeigt.
+          </p>
+        </div>
+      </div>
+
+      <div class="showcase-grid-edit">
+        <div class="showcase-kartei-header-lern">
+          <div>
+            <h4>Name</h4>
+            <h2>{{.Karteikasten.KarteikastenName}}</h2>
+          </div>
+          <div>
+            <h4>Kategorie</h4>
+            <h2>{{.Karteikasten.Ueberkategorie}}<i class="fas fa-caret-right"></i>{{.Karteikasten.UnterKategorie}}</h2>
+          </div>
+          <div>
+            <h4>Fortschritt</h4>
+            <h2>{{.Karteikasten.Fortschritt}}%</h2>
+          </div>
+          <div class="lern-grid">
+            <label class="is-left">Wiederholung</label>
+            <label for="">0</label>
+            <label for="">1</label>
+            <label for="">2</label>
+            <label for="">3</label>
+            <label for="">4</label>
+            <label class="is-left">Karten</label>
+            <label for=""><strong>{{.FachAnz0}}</strong></label>
+            <label for=""><strong>{{.FachAnz1}}</strong></label>
+            <label for=""><strong>{{.FachAnz2}}</strong></label>
+            <label for=""><strong>{{.FachAnz3}}</strong></label>
+            <label for=""><strong>{{.FachAnz4}}</strong></label>
+          </div>
+          <div class="hexagon is-right">
+            <h2>{{.Karteikasten.AnzKarten}}</h2>
+            <p>Karten</p>
+          </div>
+        </div>
+        <div class="showcase-edit-lern">
+          <div class="showcase-kart-box">
+            <form class="reg-form">
+              <div class="field box-1-6-2flex">
+                <label class="label">Titel</label>
+                <div class="control">
+                  <p><strong>{{.KartenName}}</strong></p>
+                </div>
+                <div class="hexa-flex">
+                  <div class="hexagon2 is-centerd {{if .Fach0}}is-green-hex{{end}}">
+                    <h2>0</h2>
+                  </div>
+                  <div class="hexagon2 is-centerd {{if .Fach1}}is-green-hex{{end}}">
+                    <h2>1</h2>
+                  </div>
+                  <div class="hexagon2 is-centerd {{if .Fach2}}is-green-hex{{end}}">
+                    <h2>2</h2>
+                  </div>
+                  <div class="hexagon2 is-centerd {{if .Fach3}}is-green-hex{{end}}">
+                    <h2>3</h2>
+                  </div>
+                  <div class="hexagon2 is-centerd {{if .Fach4}}is-green-hex{{end}}">
+                    <h2>4</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="field box-1-8-flex just-up">
+                <label class="label">Frage</label>
+                <div class="control">
+                  <p>
+                    {{.Frage}}
+                  </p>
+                </div>
+              </div>
+
+              {{if .Aufgedeckt}}
+              <div class="field box-1-8-flex just-up">
+                <label class="label">Antwort</label>
+                <div class="control">
+                  <p>
+                    {{.Antwort}}
+                  </p>
+                </div>
+              </div>
+              <div class="field box-1-8-flex">
+                <div></div>
+                <div class="is-centered">
+                  <button class="button loginbtn is-green" type="submit">
+                    <a href="/karteikasten/lern/update/?id={{.Karteikasten.ID}}&choise=true&kartennr={{.KartenNr}}">Richtig</a>
+                  </button>
+                  <button class="button loginbtn is-red" type="submit">
+                    <a href="/karteikasten/lern/update/?id={{.Karteikasten.ID}}&choise=false&kartennr={{.KartenNr}}">Falsch</a>
+                  </button>
+                </div>
+              </div>
+              {{else}}
+              <div class="field box-1-8-flex just-up">
+                <label class="label">Antwort</label>
+                <div class="control">
+                  <p></p>
+                </div>
+              </div>
+              <div class="field box-1-8-flex">
+                <div></div>
+                <div class="is-centered">
+                  <button id="btn-aufdecken" class="button is-large loginbtn" type="submit">
+                    <a href="/karteikasten/lern/?id={{.Karteikasten.ID}}&aufgedeckt=true&kartennr={{.KartenNr}}">Aufdecken</a>
+                  </button>
+                </div>
+              </div>
+              <div class="field box-1-8-flex">
+                <div></div>
+                <div class="is-right">
+                  <button class="button is-small loginbtn" type="submit">
+                    <a href="/karteikasten/lern/?id={{.Karteikasten.ID}}">Überspringen</a>
+                  </button>
+                </div>
+              </div>
+              {{end}}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{{end}}

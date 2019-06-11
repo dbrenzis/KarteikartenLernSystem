@@ -1,0 +1,29 @@
+{{define "showcase"}}
+
+    <div class="column is-10">
+      <div class="showcaseheader"></div>
+      <div class="showcase-field">
+        <h2>
+          Willkommen bei <span class="text-gruen">Brain</span
+          ><span class="text-hellgruen">Train</span>
+        </h2>
+        <h3>
+          Hier haben sich
+          <span id="nutzer"
+            ><strong>{{.Anzuserges}} Nutzer</strong> angemeldet und</span
+          >
+        </h3>
+        <h3>
+          zusammen <span id="karteikarten"></span
+          ><strong>{{.Anzkartges}} Lernkarten</strong> in
+          <span id="karteien"
+            ><strong>{{.Anzkatges}} Karteien</strong></span
+          >
+        </h3>
+        <h3>erstellt.</h3>
+      </div>
+    </div>
+  </body>
+</html>
+
+{{end}}
