@@ -62,9 +62,15 @@
                         </div>
                     {{ end }}
                 {{ end }}
+                <div>
+                    <button class="button is-small loginbtn is-green" type="submit">
+                        <a href="/karteikasten/edit-karten/update-karte/?id={{$KarteikastenID}}&nr=0">Hinzufügen</a>
+                    </button>
+                </div>
+
             </div>
             <div class="showcase-kart-box">
-                <form lass="reg-form" action="/karteikasten/edit-karten/update-karte/?id={{$KarteikastenID}}&nr={{if eq .Karteikasten.AnzKarten "0"}}1{{else}}{{.KartenNr}}{{end}}">
+                <form lass="reg-form" action="/karteikasten/edit-karten/update-karte/?id={{$KarteikastenID}}&nr={{if eq .Karteikasten.AnzKarten "0"}}0{{else}}{{.KartenNr}}{{end}}" method="Post">
                     <div class="field box-1-8-flex">
                         <label class="label">Titel</label>
                         <div class="control">

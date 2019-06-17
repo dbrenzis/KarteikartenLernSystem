@@ -17,7 +17,7 @@ func main() {
 	http.HandleFunc("/karteikasten/edit/", controller.AuthKartei(controller.Edit))
 	http.HandleFunc("/karteikasten/edit/add-Kasten/", controller.AddKarteikasten)
 	http.HandleFunc("/karteikasten/edit-karten/", controller.AuthIndex(controller.EditKarten))
-	http.HandleFunc("/karteikasten/edit-karten/update-karte/", controller.AuthIndex(controller.UpdateKarte))
+	http.HandleFunc("/karteikasten/edit-karten/update-karte/", controller.UpdateKarte)
 	http.HandleFunc("/karteikasten/lern/", controller.AuthView(controller.Lern))
 	http.HandleFunc("/karteikasten/lern/update/", controller.AuthView(controller.UpdateKarteiLern))
 	http.HandleFunc("/profil", controller.AuthIndex(controller.Profil))

@@ -136,8 +136,9 @@ func AddKarteikasten(w http.ResponseWriter, r *http.Request) {
 	kategorie := r.PostFormValue("Ueberkategorie")
 	oeffentlich := r.FormValue("Öffentlich")
 
+	fmt.Println(oeffentlich)
 	var sichtbarkeit string
-	if oeffentlich == "on" {
+	if oeffentlich == "Öffentlich" {
 		sichtbarkeit = "Öffentlich"
 	} else {
 		sichtbarkeit = "Privat"
@@ -172,24 +173,16 @@ func UpdateKarte(w http.ResponseWriter, r *http.Request) {
 	id := r.FormValue("id")
 	kartenNr := r.FormValue("nr")
 	kartenNamen := r.FormValue("KartenName")
-	antwort := r.PostFormValue("Antwort")
+	antwort := r.FormValue("Antwort")
 	frage := r.FormValue("Frage")
 
-	var Karteikarte struct {
-		KartenName string
-		Fach       string
-		Frage      string
-		Antwort    string
-		KartenNr   string
-	}
+	fmt.Println(id)
+	fmt.Println(kartenNr)
+	fmt.Println(kartenNamen)
+	fmt.Println(antwort)
+	fmt.Println(frage)
 
-	Karteikarte.KartenNr = kartenNr
-	Karteikarte.Fach = "0"
-	Karteikarte.KartenName = kartenNamen
-	Karteikarte.Antwort = antwort
-	Karteikarte.Frage = frage
-
-	
+	model.UpdateKarteikastenKarten(id, kartenNamen, frage, antwort, kartenNr)
 
 	http.Redirect(w, r, "/karteikasten/edit-karten/?id="+id+"&nr="+kartenNr, http.StatusFound)
 }

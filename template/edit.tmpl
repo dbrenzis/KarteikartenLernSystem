@@ -88,11 +88,11 @@
             <label class="label" >Sichtbarkeit</label>
             <div class="control is-dark">
               <label class="radio">
-                <input type="radio" name="Öffentlich" {{if eq .Karteikasten.Sichtbarkeit "Öffentlich"}}checked{{end}} />
+                <input type="radio" value="Öffentlich" name="Öffentlich" {{if eq .Karteikasten.Sichtbarkeit "Öffentlich"}}checked{{end}} />
                 Öffentlich
               </label>
               <label class="radio">
-                <input type="radio" name="Privat" {{if eq .Karteikasten.Sichtbarkeit "Privat"}}checked{{end}}/>
+                <input type="radio" value="Privat" name="Öffentlich" {{if eq .Karteikasten.Sichtbarkeit "Privat"}}checked{{end}}/>
                 Privat
               </label>
             </div>

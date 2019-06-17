@@ -18,32 +18,35 @@ import (
 
 //KarteikastenData für die Datenhaltung
 type KarteikastenData struct {
-	ID                       string `json:"_id"`
-	Rev                      string `json:"_rev"`
-	Type                     string `json:"type"`
-	Ueberkategorie           string `json:"ueberkategorie"`
-	UnterKategorie           string `json:"unterkategorie"`
-	KarteikastenName         string `json:"karteikastenname"`
-	ErstellerName            string `json:"erstellername"`
-	Sichtbarkeit             string `json:"sichtbarkeit"`
-	AnzKarten                string `json:"anzkarten"`
-	KarteikastenBeschreibung string `json:"karteikastenbeschreibung"`
-	Karteikarten             []struct {
-		KartenName string `json:"kartenname"`
-		Fach       string `json:"fach"`
-		Frage      string `json:"frage"`
-		Antwort    string `json:"antwort"`
-		KartenNr   string `json:"kartennr"`
-		IstGruen   bool
-		Fach0      bool
-		Fach1      bool
-		Fach2      bool
-		Fach3      bool
-		Fach4      bool
-	} `json:"karteikarten"`
-	Gelerntvon   string `json:"gelerntvon"`
-	Fortschritt  string `json:"fortschritt"`
-	KeinEigentum bool   `json:"keineigentum"`
+	ID                       string        `json:"_id"`
+	Rev                      string        `json:"_rev"`
+	Type                     string        `json:"type"`
+	Ueberkategorie           string        `json:"ueberkategorie"`
+	UnterKategorie           string        `json:"unterkategorie"`
+	KarteikastenName         string        `json:"karteikastenname"`
+	ErstellerName            string        `json:"erstellername"`
+	Sichtbarkeit             string        `json:"sichtbarkeit"`
+	AnzKarten                string        `json:"anzkarten"`
+	KarteikastenBeschreibung string        `json:"karteikastenbeschreibung"`
+	Karteikarten             []Karteikarte `json:"karteikarten"`
+	Gelerntvon               string        `json:"gelerntvon"`
+	Fortschritt              string        `json:"fortschritt"`
+	KeinEigentum             bool          `json:"keineigentum"`
+}
+
+//Karteikarte Datenhaltung für die Karten
+type Karteikarte struct {
+	KartenName string `json:"kartenname"`
+	Fach       string `json:"fach"`
+	Frage      string `json:"frage"`
+	Antwort    string `json:"antwort"`
+	KartenNr   string `json:"kartennr"`
+	IstGruen   bool
+	Fach0      bool
+	Fach1      bool
+	Fach2      bool
+	Fach3      bool
+	Fach4      bool
 }
 
 /*
@@ -337,8 +340,11 @@ func (karteikasten KarteikastenData) GetFortschritt() (fortschritt int, fach [5]
 		fortschritt += j * faecher[j]
 	}
 
+	wert, _ := strconv.ParseInt(karteikasten.AnzKarten, 0, 0)
+	var intwert = int(wert)
+
 	fortschritt *= 100
-	fortschritt /= (4 * len(karteikasten.Karteikarten))
+	fortschritt /= (4 * intwert)
 
 	return fortschritt, faecher
 }
@@ -348,11 +354,12 @@ func GetBaseData(link string, name string) BaseDat {
 	var base []BaseDat
 	var ret BaseDat
 	ret.Link = link
-	var karteikaesten []KarteikastenData
+
 	if name == "" {
 		ret.LoggedIn = false
 
 	} else {
+		var karteikaesten []KarteikastenData
 		userMap, _ := btDBS.QueryJSON(`
 						{
 							"selector": {
@@ -391,8 +398,9 @@ func GetBaseData(link string, name string) BaseDat {
 		ret.TagMK = strconv.Itoa(len(karteikaesten))
 
 	}
+	var kaesten []KarteikastenData
 
-	karteikastenMap, _ := btDBS.QueryJSON(`
+	kastenMap, _ := btDBS.QueryJSON(`
 	{
 		"selector": {
 			 "type": {
@@ -404,9 +412,9 @@ func GetBaseData(link string, name string) BaseDat {
 		}
 	 }`)
 
-	mapstructure.Decode(karteikastenMap, &karteikaesten)
+	mapstructure.Decode(kastenMap, &kaesten)
 
-	ret.TagK = strconv.Itoa(len(karteikaesten))
+	ret.TagK = strconv.Itoa(len(kaesten))
 
 	return ret
 
@@ -838,6 +846,51 @@ func GetProfilData(name string) (ProfilDat, error) {
 	}
 
 	return profildata, nil
+}
+
+//UpdateKarteikastenKarten erneuert die Karten im Karteikasten
+func UpdateKarteikastenKarten(id string, KartenName string, Frage string, Antwort string, KartenNr string) error {
+
+	kastenMap, _ := btDBS.Get(id, nil)
+
+	var karteikastenStruct, _ = map2kartei(kastenMap)
+
+	kartennr, _ := strconv.ParseInt(KartenNr, 0, 0)
+
+	if kartennr == 0 {
+
+		kartenNRneu, _ := strconv.ParseInt(karteikastenStruct.AnzKarten, 0, 0)
+		kartenNRneuInt := int(kartenNRneu + 1)
+		karteikastenStruct.AnzKarten = strconv.Itoa(kartenNRneuInt)
+
+		var Karten = make([]Karteikarte, kartenNRneuInt)
+
+		for i := 0; i < int(kartenNRneu); i++ {
+			Karten[i] = karteikastenStruct.Karteikarten[i]
+		}
+
+		Karten[kartenNRneu].Antwort = Antwort
+		Karten[kartenNRneu].Frage = Frage
+		Karten[kartenNRneu].KartenName = KartenName
+		Karten[kartenNRneu].KartenNr = strconv.Itoa(kartenNRneuInt)
+		Karten[kartenNRneu].Fach = "0"
+
+		karteikastenStruct.Karteikarten = Karten
+
+		return nil
+
+	} else {
+
+		karteikastenStruct.Karteikarten[kartennr-1].KartenName = KartenName
+		karteikastenStruct.Karteikarten[kartennr-1].Frage = Frage
+		karteikastenStruct.Karteikarten[kartennr-1].Antwort = Antwort
+
+		KasteMap, _ := kartei2Map(karteikastenStruct)
+
+		ret := btDBS.Set(id, KasteMap)
+		return ret
+	}
+
 }
 
 //Für alle DatenhaltungsStructs
