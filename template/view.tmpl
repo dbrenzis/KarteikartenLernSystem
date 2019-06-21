@@ -40,10 +40,12 @@
     </div>
     <div class="grid-1-3">
       <div class="kart-box">
-        {{ range .Karteikasten.Karteikarten }}
-        <div class="kart-v {{if .IstGruen}}is-green{{else}}{{end}}">
+        {{ range.Karteikasten.Karteikarten }}
+        <div class="kart-v {{if .IstGruen}}is-green{{else}}{{ end }}">
           <!--is-green-->
-          <a href="/karteikasten/view/?id={{$KarteikastenID}}&nr={{.KartenNr}}">
+          <a
+            href="/karteikasten/view/?id={{ $KarteikastenID }}&nr={{.KartenNr}}"
+          >
             <div>
               <h2>#{{.KartenNr}}</h2>
               <h4>{{.KartenName}}</h4>
@@ -92,17 +94,21 @@
           <div class="field box-1-8-flex just-up">
             <label class="label">Frage</label>
             <div class="control">
-              <p>
-                {{.Frage}}
-              </p>
+              <textarea
+                id="MyID5"
+                class="textarea is-dark"
+                >{{.Frage}}</textarea
+              >
             </div>
           </div>
           <div class="field box-1-8-flex just-up">
             <label class="label">Antwort</label>
             <div class="control">
-              <p>
-                {{.Antwort}}
-              </p>
+              <textarea
+                id="MyID6"
+                class="textarea is-dark"
+                >{{.Antwort}}</textarea
+              >
             </div>
           </div>
           <div></div>
@@ -111,5 +117,8 @@
     </div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script src="/static/js/view.js"></script>
 
 {{ end }}

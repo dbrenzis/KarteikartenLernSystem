@@ -869,15 +869,34 @@ func UpdateKarteikastenKarten(id string, KartenName string, Frage string, Antwor
 			Karten[i] = karteikastenStruct.Karteikarten[i]
 		}
 
-		Karten[kartenNRneu].Antwort = Antwort
-		Karten[kartenNRneu].Frage = Frage
-		Karten[kartenNRneu].KartenName = KartenName
+		if Antwort == "" {
+			Karten[kartenNRneu].Antwort = ""
+		} else {
+			Karten[kartenNRneu].Antwort = Antwort
+		}
+		if Frage == "" {
+			Karten[kartenNRneu].Frage = ""
+		} else {
+			Karten[kartenNRneu].Frage = Frage
+		}
+		if KartenName == "" {
+			Karten[kartenNRneu].KartenName = ""
+		} else {
+			Karten[kartenNRneu].KartenName = KartenName
+		}
+
 		Karten[kartenNRneu].KartenNr = strconv.Itoa(kartenNRneuInt)
 		Karten[kartenNRneu].Fach = "0"
 
 		karteikastenStruct.Karteikarten = Karten
 
-		return nil
+		KasteMap, _ := kartei2Map(karteikastenStruct)
+
+		fmt.Println(KasteMap)
+
+		ret := btDBS.Set(id, KasteMap)
+
+		return ret
 
 	} else {
 
