@@ -86,6 +86,11 @@ func Lern(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, viewData)
 }
 
+//AuthKarteikasten für die Öffentlichen Karteikaesten
+func AuthKarteikasten(w http.ResponseWriter, r *http.Request) {
+	
+}
+
 //Edit Für die Edit Seite
 func Edit(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "session")

@@ -487,7 +487,10 @@ func GetKarteikastenData(name string) (KarteikastenDat, error) {
 				 },
 				 "sichtbarkeit": {
 					 "$eq": "Öffentlich"
-				}
+				},
+				"gelerntvon": {
+					"$eq": ""
+			   }
 			}
 		 }`)
 		var karteikaestenStruct []KarteikastenData
@@ -580,7 +583,7 @@ func GetMeineKarteikastenData(name string) (MeineKarteikastenDat, error) {
 			{
 				"selector": {
 					 "type": { 
-							"$eq": "Kartei" 
+							"$eq": "Karteikasten" 
 					 },
 					 "gelerntvon":{
 						"$eq": "` + name + `"
