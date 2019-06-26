@@ -96,11 +96,7 @@
           <div class="field box-1-8-flex just-up">
             <label class="label">Frage</label>
             <div class="control">
-              <textarea
-                id="MyID3"
-                class="textarea is-dark"
-                >{{.Frage}}</textarea
-              >
+              <p>{{.Frage}}</p>
             </div>
           </div>
 
@@ -108,23 +104,23 @@
           <div class="field box-1-8-flex just-up">
             <label class="label">Antwort</label>
             <div class="control">
-              <textarea
-                id="MyID4"
-                class="textarea is-dark"
-                >{{.Antwort}}</textarea
-              >
+              <p>{{.Antwort}}</p>
             </div>
           </div>
           <div class="field box-1-8-flex">
             <div></div>
             <div class="is-centered">
-              <button class="button loginbtn is-green" type="submit">
+              <button
+                id="richtig"
+                class="button loginbtn is-green"
+                type="submit"
+              >
                 <a
                   href="/karteikasten/lern/update/?id={{.Karteikasten.ID}}&choise=true&kartennr={{.KartenNr}}"
                   >Richtig</a
                 >
               </button>
-              <button class="button loginbtn is-red" type="submit">
+              <button id="falsch" class="button loginbtn is-red" type="submit">
                 <a
                   href="/karteikasten/lern/update/?id={{.Karteikasten.ID}}&choise=false&kartennr={{.KartenNr}}"
                   >Falsch</a
@@ -170,8 +166,5 @@
     </div>
   </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-<script src="/static/js/lern.js"></script>
 
 {{ end }}

@@ -25,6 +25,7 @@ func main() {
 	http.HandleFunc("/register", controller.Register)
 	http.HandleFunc("/add-user", controller.AddUser)
 	http.HandleFunc("/profil/update-User", controller.UpdateUser)
+	http.HandleFunc("/profil/update-Image", controller.UpdateImage)
 	http.HandleFunc("/profil/del-User", controller.DelUser)
 	//http.HandleFunc("/meinekarteien/del-kartei", controller.DelKartei)
 	http.HandleFunc("/authenticate-user", controller.AuthenticateUser)

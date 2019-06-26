@@ -51,14 +51,24 @@
       </form>
     </div>
 
-    <div class="showcase-field1">
-      <i class="fas fa-user-circle"></i>
-      <button class="button is-small loginbtn" type="submit">
-        Edit
-      </button>
-      <h2>{{.Name}}</h2>
-      <p>{{.Email}}</p>
-    </div>
+    <form
+      enctype="multipart/form-data"
+      action="/profil/update-Image"
+      method="post"
+    >
+      <div class="showcase-field1">
+        <i class="fas fa-user-circle"></i>
+
+        <input type="file" name="myFile" id="" />
+
+        <button class="button is-small loginbtn" type="submit">
+          Edit
+        </button>
+
+        <h2>{{.Name}}</h2>
+        <p>{{.Email}}</p>
+      </div>
+    </form>
 
     <div class="showcase-field2">
       <h2>Statistik</h2>

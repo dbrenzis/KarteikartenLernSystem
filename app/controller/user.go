@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -41,11 +42,40 @@ func DelUser(w http.ResponseWriter, r *http.Request) {
 
 	user, _ := model.GetUserByUsername(username)
 
-	err := user.Del()
+	err := model.DelKasten(username)
+	err = user.Del()
 	if err == nil {
 
 		http.Redirect(w, r, "/logout", http.StatusFound)
 	}
+}
+
+//UpdateImage controller
+func UpdateImage(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "session")
+	username := session.Values["name"].(string)
+
+	user, _ := model.GetUserByUsername(username)
+
+	r.ParseMultipartForm(10 << 20)
+
+	file, _, err := r.FormFile("myFile")
+	if err != nil {
+		fmt.Println("Error Retrieving the File")
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+
+	filebyte, _ := ioutil.ReadAll(file)
+
+	encodedString := base64.StdEncoding.EncodeToString(filebyte)
+
+	user.Bild = encodedString
+
+	user.Update()
+
+	http.Redirect(w, r, "/", http.StatusFound)
 
 }
 
@@ -66,7 +96,9 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 
 		if model.Checkmail(email) {
-			user.Email = email
+			if email != "" {
+				user.Email = email
+			}
 			user.Passwort = password
 			err = user.Update()
 			http.Redirect(w, r, "/", http.StatusFound)

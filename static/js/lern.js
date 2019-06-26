@@ -1,2 +1,6 @@
-var simplemde3 = new SimpleMDE({ element: document.getElementById("MyID3") });
-var simplemde4 = new SimpleMDE({ element: document.getElementById("MyID4") });
+document.getElementById("richtig").addEventListener("click", prev);
+document.getElementById("falsch").addEventListener("click", prev);
+
+function prev(e) {
+  e.preventDefault();
+}

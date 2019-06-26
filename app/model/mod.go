@@ -30,6 +30,7 @@ type KarteikastenData struct {
 	KarteikastenBeschreibung string        `json:"karteikastenbeschreibung"`
 	Karteikarten             []Karteikarte `json:"karteikarten"`
 	Gelerntvon               string        `json:"gelerntvon"`
+	PartenID                 string        `json:"partenid"`
 	Fortschritt              string        `json:"fortschritt"`
 	KeinEigentum             bool          `json:"keineigentum"`
 }
@@ -583,7 +584,7 @@ func GetMeineKarteikastenData(name string) (MeineKarteikastenDat, error) {
 			{
 				"selector": {
 					 "type": { 
-							"$eq": "Karteikasten" 
+							"$eq": "GelernteKarteikasten" 
 					 },
 					 "gelerntvon":{
 						"$eq": "` + name + `"
@@ -594,6 +595,10 @@ func GetMeineKarteikastenData(name string) (MeineKarteikastenDat, error) {
 
 				index := 0
 				for _, v := range karteikaestenMap {
+
+					tmp, _ := karteikaestenStruct[index].GetFortschritt()
+
+					karteikaestenStruct[index].Fortschritt = strconv.Itoa(tmp)
 
 					if karteikaestenStruct[index].ErstellerName == name {
 						karteikaestenStruct[index].KeinEigentum = false
@@ -913,6 +918,114 @@ func UpdateKarteikastenKarten(id string, KartenName string, Frage string, Antwor
 		return ret
 	}
 
+}
+
+//CheckEigentum ist eine wichtige Methode
+func CheckEigentum(id string, username string) string {
+	kastenMap, _ := btDBS.Get(id, nil)
+
+	var karteikastenStruct, _ = map2kartei(kastenMap)
+
+	fmt.Println(karteikastenStruct.ErstellerName)
+
+	if karteikastenStruct.ErstellerName == username || karteikastenStruct.Gelerntvon == username {
+		return id
+	} else {
+
+		karteikaestenMap, _ := btDBS.QueryJSON(`
+			{
+				"selector": {
+					 "type": { 
+							"$eq": "GelernteKarteikasten" 
+					 },
+					 "partenid":{
+						"$eq": "` + id + `"
+					 }
+				}
+			 }`)
+
+		var karteikaestenStruct []KarteikastenData
+
+		mapstructure.Decode(karteikaestenMap, &karteikaestenStruct)
+
+		if len(karteikaestenStruct) >= 1 {
+			index := 0
+			for _, v := range karteikaestenMap {
+				karteikaestenStruct[index].ID = v["_id"].(string)
+				index++
+			}
+			return karteikaestenStruct[0].ID
+		} else {
+			karteikastenStruct.Gelerntvon = username
+			karteikastenStruct.PartenID = id
+			karteikastenStruct.Type = "GelernteKarteikasten"
+
+			for i := 0; i < len(karteikastenStruct.Karteikarten); i++ {
+				karteikastenStruct.Karteikarten[i].Fach = "0"
+			}
+
+			var kastenneuMap, _ = kartei2Map(karteikastenStruct)
+
+			delete(kastenneuMap, "_id")
+			delete(kastenneuMap, "_rev")
+			delete(kastenneuMap, "fortschritt")
+			delete(kastenneuMap, "keineigentum")
+
+			id, _, _ := btDBS.Save(kastenneuMap, nil)
+
+			return id
+		}
+	}
+}
+
+//DelKasten Löscht zugehörige Kästen
+func DelKasten(name string) error {
+	var karteikaestenStruct []KarteikastenData
+	karteikaestenMap, _ := btDBS.QueryJSON(`
+		{
+			"selector": {
+				 "type": {
+						"$eq": "Karteikasten"
+				 },
+				 "erstellername":{
+					"$eq": "` + name + `"
+				 }
+			}
+		 }`)
+
+	mapstructure.Decode(karteikaestenMap, &karteikaestenStruct)
+
+	var err error
+	index := 0
+	for _, v := range karteikaestenMap {
+		var id = v["_id"].(string)
+		err = btDBS.Delete(id)
+		index++
+	}
+
+	var karteikaestenStruct2 []KarteikastenData
+	karteikaestenMap2, _ := btDBS.QueryJSON(`
+		{
+			"selector": {
+				 "type": {
+						"$eq": "GelernteKarteikasten"
+				 },
+				 "erstellername":{
+					"$eq": "` + name + `"
+				 }
+			}
+		 }`)
+
+	mapstructure.Decode(karteikaestenMap2, &karteikaestenStruct2)
+
+	index = 0
+	for _, v := range karteikaestenMap2 {
+		var id = v["_id"].(string)
+		err = btDBS.Delete(id)
+		index++
+	}
+
+	return err
 }
 
 //Für alle DatenhaltungsStructs

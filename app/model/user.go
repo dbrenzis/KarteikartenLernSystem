@@ -70,7 +70,7 @@ func (user UserData) Add() (err error) {
 	userInDB, err := GetUserByUsernameAndMail(user.Name, user.Email)
 	if err == nil {
 		if userInDB.Name == user.Name {
-			errors.New("Name existiert")
+			err = errors.New("Name existiert")
 
 		}
 		if userInDB.Email == user.Email {
@@ -112,10 +112,10 @@ func (user UserData) Add() (err error) {
 // GetUserByUsernameAndMail check
 func GetUserByUsernameAndMail(username string, email string) (user UserData, err error) {
 	if username == "" {
-		errors.New("Kein Benutzername")
+		err = errors.New("Kein Benutzername")
 	}
 	if email == "" {
-		errors.New("Keine Email")
+		err = errors.New("Keine Email")
 	}
 
 	if err != nil {

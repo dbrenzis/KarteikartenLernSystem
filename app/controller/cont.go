@@ -77,6 +77,9 @@ func Lern(w http.ResponseWriter, r *http.Request) {
 	log.Println(err)
 
 	id := r.FormValue("id")
+
+	id = model.CheckEigentum(id, username)
+
 	aufgedeckt := r.FormValue("aufgedeckt")
 	kartenNr := r.FormValue("kartennr")
 
@@ -88,7 +91,7 @@ func Lern(w http.ResponseWriter, r *http.Request) {
 
 //AuthKarteikasten für die Öffentlichen Karteikaesten
 func AuthKarteikasten(w http.ResponseWriter, r *http.Request) {
-	
+
 }
 
 //Edit Für die Edit Seite
