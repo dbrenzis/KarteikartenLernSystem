@@ -187,3 +187,12 @@ func UpdateKarte(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, "/karteikasten/edit-karten/?id="+id+"&nr="+kartenNr, http.StatusFound)
 }
+
+//DelKartei
+func DelKartei(w http.ResponseWriter, r *http.Request) {
+	id := r.FormValue("id")
+
+	model.DeleteKarteikasten(id)
+
+	http.Redirect(w, r, "/meinekarteien", http.StatusFound)
+}

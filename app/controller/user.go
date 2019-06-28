@@ -73,7 +73,7 @@ func UpdateImage(w http.ResponseWriter, r *http.Request) {
 
 	user.Bild = encodedString
 
-	user.Update()
+	user.UpdateImg()
 
 	http.Redirect(w, r, "/", http.StatusFound)
 

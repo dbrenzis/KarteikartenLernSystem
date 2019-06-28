@@ -18,7 +18,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css"
     />
-    <link rel="stylesheet" href="/static/css/bulma.css"/>
+    <link rel="stylesheet" href="/static/css/bulma.css" />
     <link rel="stylesheet" href="/static/css/style.css" />
     <title>WebProjekt</title>
   </head>
@@ -41,7 +41,16 @@
           <label> {{.BaseDaten.Name}} </label>
           <a class="form-group-item-link" href="/logout">Logout</a>
         </div>
+        {{if eq .BaseDaten.Bild ""}}
         <i class="fas fa-user-circle"></i>
+        {{else}}
+        <img
+          class="img-height"
+          height="50"
+          width="50"
+          src="data:image/png;base64,{{.BaseDaten.Bild}}"
+        />
+        {{ end }}
       </div>
     </div>
 
@@ -94,7 +103,11 @@
         <span class="">{{.ErrorMsg}}</span>
       </div>
 
-      <form class="login-form" action="{{.BaseDaten.Link}}/authenticate-user" method="POST">
+      <form
+        class="login-form"
+        action="{{.BaseDaten.Link}}/authenticate-user"
+        method="POST"
+      >
         <div class="form-group">
           <input
             class="form-group-item"

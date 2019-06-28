@@ -68,6 +68,7 @@ type BaseDat struct {
 	Name     string
 	TagMK    string
 	TagK     string
+	Bild     string
 }
 
 //IndexDat (Struct für das Index Tmpl.)
@@ -397,6 +398,29 @@ func GetBaseData(link string, name string) BaseDat {
 		mapstructure.Decode(karteikastenMap, &karteikaesten)
 
 		ret.TagMK = strconv.Itoa(len(karteikaesten))
+
+		mapstructure.Decode(karteikastenMap, &karteikaesten)
+
+		var TMK = len(karteikaesten)
+		var karteikaesten2 []KarteikastenData
+
+		karteikastenNeuMap, _ := btDBS.QueryJSON(`
+		{
+			"selector": {
+					"type": { 
+						"$eq": "GelernteKarteikasten" 
+					},
+					"gelerntvon":{
+					"$eq": "` + name + `"
+					}
+			}
+		}`)
+
+		mapstructure.Decode(karteikastenNeuMap, &karteikaesten2)
+
+		TMK += len(karteikaesten2)
+
+		ret.TagMK = strconv.Itoa(TMK)
 
 	}
 	var kaesten []KarteikastenData
@@ -1026,6 +1050,11 @@ func DelKasten(name string) error {
 	}
 
 	return err
+}
+
+//DeleteKarteikasten Löscht den Kasten
+func DeleteKarteikasten(id string) {
+	btDBS.Delete(id)
 }
 
 //Für alle DatenhaltungsStructs

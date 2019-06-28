@@ -61,6 +61,19 @@ func (user UserData) Update() (err error) {
 	err = btDBS.Set(user.ID, u)
 
 	return err
+}
+
+//UpdateImg Erneuert die Benutzer Daten
+func (user UserData) UpdateImg() (err error) {
+
+	// Convert Todo struct to map[string]interface as required by Save() method
+	u, err := user2Map(user)
+
+	//delete(u, "_rev")
+
+	err = btDBS.Set(user.ID, u)
+
+	return err
 
 }
 
