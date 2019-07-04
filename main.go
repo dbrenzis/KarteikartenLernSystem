@@ -12,6 +12,7 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/", controller.AuthIndex(controller.Index))
 	http.HandleFunc("/karteikasten", controller.AuthKartei(controller.Karteikasten))
+	http.HandleFunc("/karteikasten/filtered/", controller.AuthKartei(controller.KarteikastenFilter))
 	http.HandleFunc("/meinekarteien", controller.AuthIndex(controller.Meinekarteien))
 	http.HandleFunc("/karteikasten/view/", controller.AuthView(controller.View))
 	http.HandleFunc("/karteikasten/edit/", controller.AuthKartei(controller.Edit))

@@ -1,155 +1,165 @@
-  {{define "showcase"}}
-    <div class="column is-10">
-      <div class="showcaseheader-double">
-        <div class="showcaseheader">
-          <h2>Karteikästen</h2>
-          <p>
-            Im Karteikasten ﬁndest du alle öffentlichen Karteien.
-          </p>
-        </div>
-
-        <div class="showcaseheader-right">
-          <div class="select is-small is-dark">
-            <select class="kategorie dark">
-              <option selected disabled>Sortieren nach..</option>
-              <optgroup class="opt-group" label="Naturwissenschaften">
-                <option value="Biologie">Biologie</option>
-                <option value="Chemie">Chemie</option>
-                <option value="Elektrotechnik">Elektrotechnik</option>
-                <option value="Informatik">Informatik</option>
-                <option value="Mathematik">Mathematik</option>
-                <option value="Medizin">Medizin</option>
-                <option value="Naturkunde">Naturkunde</option>
-                <option value="Physik">Physik</option>
-                <option value="Sonstiges">Sonstiges</option>
-              </optgroup>
-              <optgroup class="opt-group" label="Sprachen">
-                <option value="Chinesisch">Chinesisch</option>
-                <option value="Deutsch">Deutsch</option>
-                <option value="Englisch">Englisch</option>
-                <option value="Französisch">Französisch</option>
-                <option value="Griechisch">Griechisch</option>
-                <option value="Italienisch">Italienisch</option>
-                <option value="Latein">Latein</option>
-                <option value="Russisch">Russisch</option>
-                <option value="Sonstiges">Sonstiges</option>
-              </optgroup>
-              <optgroup class="opt-group" label="Gesellschaft">
-                <option value="Ethik">Ethik</option>
-                <option value="Geschichte">Geschichte</option>
-                <option value="Literatur">Literatur</option>
-                <option value="Musik">Musik</option>
-                <option value="Politik">Politik</option>
-                <option value="Recht">Recht</option>
-                <option value="Soziales">Soziales</option>
-                <option value="Sport">Sport</option>
-                <option value="Verkehrskunde">Verkehrskunde</option>
-                <option value="Sonstiges">Sonstiges</option>
-              </optgroup>
-              <optgroup class="opt-group" label="Wirtschaft">
-                <option value="BWL">BWL</option>
-                <option value="Finanzen">Finanzen</option>
-                <option value="Landwirtschaft">Landwirtschaft</option>
-                <option value="Marketing">Marketing</option>
-                <option value="VWL">VWL</option>
-                <option value="Sonstiges">Sonstiges</option>
-              </optgroup>
-              <optgroup class="opt-group" label="Geisteswissenschaften">
-                <option value="Kriminologie">Kriminologie</option>
-                <option value="Philosophie">Philosophie</option>
-                <option value="Psychologie">Psychologie</option>
-                <option value="Pädagogik">Pädagogik</option>
-                <option value="Theologie">Theologie</option>
-                <option value="Sonstiges">Sonstiges</option>
-              </optgroup>
-            </select>
-          </div>
-          <input
-            class="input is-small is-dark dark"
-            type="text"
-            placeholder="Suche"
-          />
-        </div>
-      </div>
-
-      <div class="showcase-karteien">
-        {{if .BaseDaten.LoggedIn}}
-          {{range .Karteien}}
-            {{if .KastenBelegt}}
-              <h3>{{.Karteititel}}</h3>
-              <div class="showcase-kartei">
-                {{range .KarteikastenDaten}}
-                  <div class="card">
-                    <header class="card-header">
-                      <span class="card-header-title">{{.Ueberkategorie}}</span>
-                    </header>
-                    <div class="card-content">
-                      <div class="flex-2">
-                        <h4><a href="/karteikasten/view/?id={{.ID}}">{{.KarteikastenName}}</a></h4>
-                        <div class="hexagon">
-                          <h2>{{.AnzKarten}}</h2>
-                          <p>Karten</p>
-                        </div>
-                      </div>
-                      <div class="content">
-                        {{.KarteikastenBeschreibung}}
-                      </div>
-                    </div>
-                      <footer class="card-footer">
-                        <div class="card-footer-item">
-                          <button class="button is-small loginbtn" type="submit">
-                          <a href="/karteikasten/lern/?id={{.ID}}">Lernen</a>
-                          </button>
-                        </div>
-                      </footer>
-                  </div>
-                {{end}}
-              </div>
-            {{else}}  
-              <h3>{{.Karteititel}}</h3>
-              <p>
-              Es wurden noch kein Karteikasten für diese Kategorie hinzugefügt.
-              </p>
-            {{end}}
-          {{end}}
-         {{else}}
-          {{range .Karteien}}
-            {{if .KastenBelegt}}
-              <h3>{{.Karteititel}}</h3>
-              <div class="showcase-kartei">
-                {{range .KarteikastenDaten}}
-                  <div class="card">
-                    <header class="card-header">
-                      <span class="card-header-title">{{.Ueberkategorie}}</span>
-                    </header>
-                    <div class="card-content">
-                      <div class="flex-2">
-                        <h4><a href="/karteikasten/view/?id={{.ID}}">{{.KarteikastenName}}</a></h4>
-                        <div class="hexagon">
-                          <h2>{{.AnzKarten}}</h2>
-                          <p>Karten</p>
-                        </div>
-                      </div>
-                      <div class="content">
-                        {{.KarteikastenBeschreibung}}
-                      </div>
-                    </div>
-                  </div>
-                {{end}}
-              </div>
-            {{else}}  
-              <h3>{{.Karteititel}}</h3>
-              <p>
-              Es wurden noch kein Karteikasten für diese Kategorie hinzugefügt.
-              </p>
-            {{end}}
-          {{end}}
-         {{end}}
-      </div>
-
-
+{{define "showcase"}}
+<div class="column is-10">
+  <div class="showcaseheader-double">
+    <div class="showcaseheader">
+      <h2>Karteikästen</h2>
+      <p>
+        Im Karteikasten ﬁndest du alle öffentlichen Karteien.
+      </p>
     </div>
-  </body>
-</html>
 
-{{end}}
+    <div class="showcaseheader-right">
+      <div class="select is-small is-dark">
+        <select name="param" id="selectOpt" class="kategorie dark">
+          <option selected disabled>Sortieren nach..</option>
+          <optgroup
+            value="Naturwissenschaften"
+            class="opt-group"
+            label="Naturwissenschaften"
+          >
+            <option value="Biologie">Biologie</option>
+            <option value="Chemie">Chemie</option>
+            <option value="Elektrotechnik">Elektrotechnik</option>
+            <option value="Informatik">Informatik</option>
+            <option value="Mathematik">Mathematik</option>
+            <option value="Medizin">Medizin</option>
+            <option value="Naturkunde">Naturkunde</option>
+            <option value="Physik">Physik</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </optgroup>
+          <optgroup value="Sprachen" class="opt-group" label="Sprachen">
+            <option value="Chinesisch">Chinesisch</option>
+            <option value="Deutsch">Deutsch</option>
+            <option value="Englisch">Englisch</option>
+            <option value="Französisch">Französisch</option>
+            <option value="Griechisch">Griechisch</option>
+            <option value="Italienisch">Italienisch</option>
+            <option value="Latein">Latein</option>
+            <option value="Russisch">Russisch</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </optgroup>
+          <optgroup value="Gesellschaft" class="opt-group" label="Gesellschaft">
+            <option value="Ethik">Ethik</option>
+            <option value="Geschichte">Geschichte</option>
+            <option value="Literatur">Literatur</option>
+            <option value="Musik">Musik</option>
+            <option value="Politik">Politik</option>
+            <option value="Recht">Recht</option>
+            <option value="Soziales">Soziales</option>
+            <option value="Sport">Sport</option>
+            <option value="Verkehrskunde">Verkehrskunde</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </optgroup>
+          <optgroup value="Wirtschaft" class="opt-group" label="Wirtschaft">
+            <option value="BWL">BWL</option>
+            <option value="Finanzen">Finanzen</option>
+            <option value="Landwirtschaft">Landwirtschaft</option>
+            <option value="Marketing">Marketing</option>
+            <option value="VWL">VWL</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </optgroup>
+          <optgroup
+            value="Geisteswissenschaften"
+            class="opt-group"
+            label="Geisteswissenschaften"
+          >
+            <option value="Kriminologie">Kriminologie</option>
+            <option value="Philosophie">Philosophie</option>
+            <option value="Psychologie">Psychologie</option>
+            <option value="Pädagogik">Pädagogik</option>
+            <option value="Theologie">Theologie</option>
+            <option value="Sonstiges">Sonstiges</option>
+          </optgroup>
+        </select>
+      </div>
+      <input
+        class="input is-small is-dark dark"
+        type="text"
+        placeholder="Suche"
+      />
+    </div>
+  </div>
+
+  <div class="showcase-karteien">
+    {{if .BaseDaten.LoggedIn}}
+    {{ range.Karteien }}
+    {{if .KastenBelegt}}
+    <h3>{{.Karteititel}}</h3>
+    <div class="showcase-kartei">
+      {{ range.KarteikastenDaten }}
+      <div class="card">
+        <header class="card-header">
+          <span class="card-header-title">{{.Ueberkategorie}}</span>
+        </header>
+        <div class="card-content">
+          <div class="flex-2">
+            <h4>
+              <a href="/karteikasten/view/?id={{.ID}}">{{.KarteikastenName}}</a>
+            </h4>
+            <div class="hexagon">
+              <h2>{{.AnzKarten}}</h2>
+              <p>Karten</p>
+            </div>
+          </div>
+          <div class="content">
+            {{.KarteikastenBeschreibung}}
+          </div>
+        </div>
+        <footer class="card-footer">
+          <div class="card-footer-item">
+            <button class="button is-small loginbtn" type="submit">
+              <a href="/karteikasten/lern/?id={{.ID}}">Lernen</a>
+            </button>
+          </div>
+        </footer>
+      </div>
+      {{ end }}
+    </div>
+    {{else}}
+    <h3>{{.Karteititel}}</h3>
+    <p>
+      Es wurden noch kein Karteikasten für diese Kategorie hinzugefügt.
+    </p>
+    {{ end }}
+    {{ end }}
+    {{else}}
+    {{ range.Karteien }}
+    {{if .KastenBelegt}}
+    <h3>{{.Karteititel}}</h3>
+    <div class="showcase-kartei">
+      {{ range.KarteikastenDaten }}
+      <div class="card">
+        <header class="card-header">
+          <span class="card-header-title">{{.Ueberkategorie}}</span>
+        </header>
+        <div class="card-content">
+          <div class="flex-2">
+            <h4>
+              <a href="/karteikasten/view/?id={{.ID}}">{{.KarteikastenName}}</a>
+            </h4>
+            <div class="hexagon">
+              <h2>{{.AnzKarten}}</h2>
+              <p>Karten</p>
+            </div>
+          </div>
+          <div class="content">
+            {{.KarteikastenBeschreibung}}
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{else}}
+    <h3>{{.Karteititel}}</h3>
+    <p>
+      Es wurden noch kein Karteikasten für diese Kategorie hinzugefügt.
+    </p>
+    {{ end }}
+    {{ end }}
+    {{ end }}
+  </div>
+</div>
+
+<script src="/static/js/karteikasten.js"></script>
+
+{{ end }}

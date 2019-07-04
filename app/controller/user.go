@@ -270,8 +270,18 @@ func AuthKartei(h http.HandlerFunc) http.HandlerFunc {
 		// Check if user is authenticated
 		if auth, ok := session.Values["loggedIn"].(bool); !ok || !auth {
 			t, _ := template.ParseFiles("template/base.tmpl", "template/karteikasten.tmpl")
-			karteien, _ := model.GetKarteikastenData("")
-			t.Execute(w, karteien)
+			unter := r.FormValue("UnterKate")
+			ueber := r.FormValue("UeberKate")
+			if unter != "" && ueber != "" {
+
+				karteien, _ := model.GetKarteikastenDataFiltered("", unter, ueber)
+				t.Execute(w, karteien)
+
+			} else {
+				karteien, _ := model.GetKarteikastenData("")
+				t.Execute(w, karteien)
+			}
+
 		} else {
 			h(w, r)
 		}

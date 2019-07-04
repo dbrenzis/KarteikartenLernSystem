@@ -36,6 +36,21 @@ func Karteikasten(w http.ResponseWriter, r *http.Request) {
 	t.Execute(w, karteikastenDaten)
 }
 
+//KarteikastenFilter Für die Karteikasten Seite
+func KarteikastenFilter(w http.ResponseWriter, r *http.Request) {
+	session, _ := store.Get(r, "session")
+	username := session.Values["name"].(string)
+	loggedIn := session.Values["loggedIn"].(bool)
+	unter := r.FormValue("UnterKate")
+	ueber := r.FormValue("UeberKate")
+	t, err := template.ParseFiles("template/base.tmpl", "template/karteikasten.tmpl")
+	log.Println(err)
+
+	karteikastenDaten, _ := model.GetKarteikastenDataFiltered(username, unter, ueber)
+	karteikastenDaten.BaseDaten.LoggedIn = loggedIn
+	t.Execute(w, karteikastenDaten)
+}
+
 // Meinekarteien Für die MeineKarteikasten Seite
 func Meinekarteien(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "session")

@@ -546,6 +546,70 @@ func GetKarteikastenData(name string) (KarteikastenDat, error) {
 	return karteikaesten, nil
 }
 
+//GetKarteikastenDataFilterd liefert das Struct für das Karteikasten Tmpl.
+func GetKarteikastenDataFiltered(name string, unter string, ueber string) (KarteikastenDat, error) {
+	var karteikaesten KarteikastenDat
+	var karteien [5]KarteienData
+
+	karteikaesten.BaseDaten = GetBaseData("/karteikasten", name)
+
+	for i := 0; i < 5; i++ {
+		var karteikaestenStruct []KarteikastenData
+		if ueber == karteienNamen[i] {
+			karteikaestenMap, _ := btDBS.QueryJSON(`
+			{
+				"selector": {
+					"type": {
+							"$eq": "Karteikasten"
+					},
+					"ueberkategorie":{
+						"$eq": "` + karteienNamen[i] + `"
+					},
+					"unterkategorie":{
+						"$eq": "` + unter + `"
+					},
+					"sichtbarkeit": {
+						"$eq": "Öffentlich"
+					},
+					"gelerntvon": {
+						"$eq": ""
+				}
+				}
+			}`)
+
+			mapstructure.Decode(karteikaestenMap, &karteikaestenStruct)
+
+			index := 0
+			for _, v := range karteikaestenMap {
+				karteikaestenStruct[index].ID = v["_id"].(string)
+				index++
+
+			}
+
+		} else {
+
+			karteikaestenStruct = []KarteikastenData{}
+
+		}
+
+		var karteienStruc KarteienData
+		karteienStruc.KarteikastenDaten = karteikaestenStruct
+		karteienStruc.Karteititel = karteienNamen[i]
+
+		if len(karteikaestenStruct) == 0 {
+			karteienStruc.KastenBelegt = false
+		} else {
+			karteienStruc.KastenBelegt = true
+		}
+
+		karteien[i] = karteienStruc
+
+	}
+
+	karteikaesten.Karteien = karteien
+	return karteikaesten, nil
+}
+
 //GetMeineKarteikastenData lieft das Struct für das MeineKarteikasten Tmpl.
 func GetMeineKarteikastenData(name string) (MeineKarteikastenDat, error) {
 	var karteikaesten MeineKarteikastenDat
